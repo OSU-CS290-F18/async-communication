@@ -1,3 +1,17 @@
+/*
+ * This function gets the Person ID from the current URL.  For example, if the
+ * current URL path is  "/people/luke", this function will return "luke".
+ */
+function getPersonIdFromURL() {
+  var path = window.location.pathname;
+  var pathParts = path.split('/');
+  if (pathParts[1] === "people") {
+    return pathParts[2];
+  } else {
+    return null;
+  }
+}
+
 function handleModalAcceptClick() {
 
   var photoURL = document.getElementById('photo-url-input').value.trim();
