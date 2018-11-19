@@ -9,7 +9,7 @@ function handleModalAcceptClick() {
 
     var photoCardTemplate = Handlebars.templates.photoCard;
     var newPhotoCardHTML = photoCardTemplate({
-      photoURL: photoURL,
+      url: photoURL,
       caption: caption
     });
     var photoCardContainer = document.querySelector('.photo-card-container');
