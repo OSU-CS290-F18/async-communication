@@ -21,13 +21,22 @@ function handleModalAcceptClick() {
     alert("You must fill in all of the fields!");
   } else {
 
-    var photoCardTemplate = Handlebars.templates.photoCard;
-    var newPhotoCardHTML = photoCardTemplate({
+    var postRequest = new XMLHttpRequest();
+    var requestURL = '/people/' + getPersonIdFromURL()  + '/addPhoto';
+    postRequest.open('POST', requestURL);
+
+    var requestBody = JSON.stringify({
       url: photoURL,
       caption: caption
     });
-    var photoCardContainer = document.querySelector('.photo-card-container');
-    photoCardContainer.insertAdjacentHTML('beforeend', newPhotoCardHTML);
+
+    // var photoCardTemplate = Handlebars.templates.photoCard;
+    // var newPhotoCardHTML = photoCardTemplate({
+    //   url: photoURL,
+    //   caption: caption
+    // });
+    // var photoCardContainer = document.querySelector('.photo-card-container');
+    // photoCardContainer.insertAdjacentHTML('beforeend', newPhotoCardHTML);
 
     hideModal();
 
@@ -76,10 +85,14 @@ function hideModal() {
 window.addEventListener('DOMContentLoaded', function () {
 
   var addPhotoButton = document.getElementById('add-photo-button');
-  addPhotoButton.addEventListener('click', showModal);
+  if (addPhotoButton) {
+    addPhotoButton.addEventListener('click', showModal);
+  }
 
   var modalAcceptButton = document.getElementById('modal-accept');
-  modalAcceptButton.addEventListener('click', handleModalAcceptClick);
+  if (modalAcceptButton) {
+    modalAcceptButton.addEventListener('click', handleModalAcceptClick);
+  }
 
   var modalHideButtons = document.getElementsByClassName('modal-hide-button');
   for (var i = 0; i < modalHideButtons.length; i++) {
