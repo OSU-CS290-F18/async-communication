@@ -30,13 +30,22 @@ function handleModalAcceptClick() {
       caption: caption
     });
 
-    // var photoCardTemplate = Handlebars.templates.photoCard;
-    // var newPhotoCardHTML = photoCardTemplate({
-    //   url: photoURL,
-    //   caption: caption
-    // });
-    // var photoCardContainer = document.querySelector('.photo-card-container');
-    // photoCardContainer.insertAdjacentHTML('beforeend', newPhotoCardHTML);
+    postRequest.addEventListener('load', function (event) {
+      if (event.target.status === 200) {
+        var photoCardTemplate = Handlebars.templates.photoCard;
+        var newPhotoCardHTML = photoCardTemplate({
+          url: photoURL,
+          caption: caption
+        });
+        var photoCardContainer = document.querySelector('.photo-card-container');
+        photoCardContainer.insertAdjacentHTML('beforeend', newPhotoCardHTML);
+      } else {
+        alert('Error storing photo: ' + event.target.response);
+      }
+    });
+
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
 
     hideModal();
 
